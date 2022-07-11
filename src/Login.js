@@ -3,6 +3,7 @@ import { enableExpoCliLogging } from 'expo/build/logs/Logs';
 import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Input, Button } from '@rneui/themed';
+import { TextInput } from 'react-native-web';
 
 const Login=()=> {
     const [user, setUser] = useState("");
@@ -12,6 +13,12 @@ const Login=()=> {
 
     return (
         <View style={styles.container}>
+            <TextInput 
+                style={styles.input}
+                onChangeText={setUser}
+                value={user}
+                placeholder={"Usuario"}
+            />
             <Input
                 placeholder='Email'
                 errorStyle={{ color: 'black' }}
@@ -41,6 +48,12 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         gap: 20
+    },
+    input: {
+        height: 40,
+        margin: 12,
+        borderWidth: 1,
+        padding: 10,
     },
 });
 
