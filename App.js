@@ -1,25 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Login from './src/Login';
+import 'react-native-gesture-handler';
+// import { StatusBar } from 'expo-status-bar';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+// import { useState } from 'react';
+// import { StyleSheet, View } from 'react-native';
+import { Login } from './src/Login';
+import { ListadoVuelos } from './src/ListadoVuelos';
+import { Registrar } from './src/Registrar'
 
 export default function App() {
-  const [user,setUser]= useState("");
-  const [password,setPassword]= useState("");
+  const Stack = createStackNavigator();
   return (
-    <View style={styles.container}>
-      <Login />
-      <StatusBar style="auto" />
-
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="ListadoVuelos" component={ListadoVuelos} />
+        <Stack.Screen name="Register" component={Registrar} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+

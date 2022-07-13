@@ -1,38 +1,58 @@
-import { StatusBar } from 'expo-status-bar';
-import { enableExpoCliLogging } from 'expo/build/logs/Logs';
+//import { StatusBar } from 'expo-status-bar';
+//import { enableExpoCliLogging } from 'expo/build/logs/Logs';
 import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Input, Button } from '@rneui/themed';
-import { TextInput } from 'react-native-web';
+import { LoginService } from './services/LoginService'
+import { GetVuelos } from './services/VueloService';
 
-const Login=()=> {
+export const Login = ({ navigation }) => {
+
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
-    const [usuario, setUsuario] = useState([]);
+    const [usuario, setUsuario] = useState(null);
     const [login, setLogin] = useState(false);
+
+    const loguear = async () => {
+        let tmpUser = await LoginService(user, password, setUsuario);
+        let vuelos = await GetVuelos();
+        console.log("Usuaurio: ", tmpUser);
+        setUsuario(tmpUser);
+        // usuario != null ? navigation.navigate("ListadoVuelos", { user: usuario }):console.log("CARGANDO")
+        navigation.navigate("ListadoVuelos", { user: tmpUser,vuelo:vuelos })
+    }
+
+    const registrar = () => {
+        navigation.navigate("Register");
+    }
 
     return (
         <View style={styles.container}>
-            <TextInput 
-                style={styles.input}
-                onChangeText={setUser}
-                value={user}
-                placeholder={"Usuario"}
-            />
             <Input
                 placeholder='Email'
                 errorStyle={{ color: 'black' }}
                 label='Ingrese email'
+                value={user}
+                onChangeText={setUser}
             />
-            <Input placeholder="Clave" 
+            <Input placeholder="Clave"
                 label='Ingrese clave'
-                secureTextEntry={true} 
+                secureTextEntry={true}
+                value={password}
+                onChangeText={setPassword}
             />
-            <View style={styles.buttons}> 
-                <Button color="secondary">Ingresar</Button>
-                <Button color="warning">Registrarse</Button>
+            <View style={styles.buttons}>
+                <View style={styles.buttonContainer}>
+                    <Button title="Ingresar" color="secondary" style={styles.button}
+                        onPress={() => {
+                            loguear();
+                        }} />
+                </View>
+                <View style={styles.buttonContainer}>
+                    <Button title="Registrarse" color="warning" onPress={() => { registrar() }} />
+                </View>
             </View>
-            
+
 
         </View>
     );
@@ -46,7 +66,7 @@ const styles = StyleSheet.create({
     },
     buttons: {
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'row',
         gap: 20
     },
     input: {
@@ -55,6 +75,10 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 10,
     },
+    button: {
+        marginRight: 10
+    },
+    buttonContainer: {
+        margin: 20
+    }
 });
-
-export default Login;
