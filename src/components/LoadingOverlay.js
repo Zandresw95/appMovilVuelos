@@ -1,15 +1,13 @@
 import { ActivityIndicator, Text, View, StyleSheet } from "react-native";
-import { Overlay } from "react-native-elements";
+import { Overlay } from "@rneui/themed";
 
-export const LoadingOverlay = (props) => {
-    const { isVisible } = props;
+export const LoadingOverlay = () => {
     let colorFondo = "rgba(255,255,255,0.3)";
     return (
         <Overlay
-            isVisible={isVisible}
-            overlayBackgroundColor="transparent"
-            overlayStyle={styles.overlay}
-            windowBackgroundColor={colorFondo}
+            isVisible={true}
+            style={styles.overlay}
+            backdropStyle={colorFondo}
         >
             <View style={styles.view}>
                 <ActivityIndicator size="large" color="#00C7B1" />

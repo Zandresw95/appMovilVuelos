@@ -13,31 +13,5 @@ export const  LoginService = async (email,password)  => {
     }catch(err){
         console.log(err)
     }
-    // const URL = baseUrl + "Personas/login";
-    
 
-    /*axios
-        .post(URL, data)
-        .then((response) => {
-            let result = response.data;
-            console.log(result);
-            return result;
-            /* if (result) {
-                 
-                 setModalVisibleError(false);
-                 // setModalVisible(true);
-             } else {
-                 setIsLoading(false);
-                 // console.log("no se pudo crear el registro");
-                 setMessageError("ERROR AL REGISTRAR EL EMAIL");
-                 setModalVisibleError(true);
-             }
-            // sendCodeEmailfn();
-        })
-        .catch((error) => {
-            /*setIsLoading(false);
-            setMessageError("ERROR AL REGISTRAR EL EMAIL");
-            setModalVisibleError(true);
-            console.log(error)
-        });*/
 };

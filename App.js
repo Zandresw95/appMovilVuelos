@@ -12,10 +12,18 @@ export default function App() {
   const Stack = createStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="ListadoVuelos" component={ListadoVuelos} />
-        <Stack.Screen name="Register" component={Registrar} />
+      <Stack.Navigator screenOptions={{
+        headerStyle: {
+          backgroundColor: '#f4511e',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }}>
+        <Stack.Screen name="Login" component={Login} options={{ title: 'Viajesito S.A' }} />
+        <Stack.Screen name="ListadoVuelos" component={ListadoVuelos} options={{ title: 'Vuelos Disponibles' }} />
+        <Stack.Screen name="Register" component={Registrar} options={{ title: 'Registro Usuarios' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -5,6 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import { Input, Button } from '@rneui/themed';
 import { LoginService } from './services/LoginService'
 import { GetVuelos } from './services/VueloService';
+import {LoadingOverlay} from './components/LoadingOverlay';
 
 export const Login = ({ navigation }) => {
 
@@ -19,7 +20,8 @@ export const Login = ({ navigation }) => {
         console.log("Usuaurio: ", tmpUser);
         setUsuario(tmpUser);
         // usuario != null ? navigation.navigate("ListadoVuelos", { user: usuario }):console.log("CARGANDO")
-        navigation.navigate("ListadoVuelos", { user: tmpUser,vuelo:vuelos })
+        tmpUser != null ? navigation.navigate("ListadoVuelos", { user: tmpUser, vuelo: vuelos }) : <LoadingOverlay />
+        //navigation.navigate("ListadoVuelos", { user: tmpUser,vuelo:vuelos })
     }
 
     const registrar = () => {
