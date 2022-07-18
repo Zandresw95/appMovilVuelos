@@ -3,24 +3,22 @@ import { StyleSheet, View } from 'react-native';
 import { Input, Button } from '@rneui/themed';
 import { LoginService } from './services/LoginService'
 import { LoadingOverlay } from './components/LoadingOverlay';
+import { NotFoundOverlay } from './components/NotFoundOverlay';
 
 export const Login = ({ navigation }) => {
 
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
-    const [usuario, setUsuario] = useState(null);
+    const [usuario, setUsuario] = useState(false);
     const [login, setLogin] = useState(false);
 
-    let tmpUser=null;
+    let tmpUser = null;
     const loguear = async () => {
-        tmpUser = await LoginService(user, password, setUsuario);
+        tmpUser = await LoginService(user, password, setUsuario, setLogin);
 
-        console.log("Usuaurio: ", tmpUser);
-        setUsuario(tmpUser);
+        //tmpUser != null ? setLogin(false) : setUsuario(true)
 
-        tmpUser!=null?setLogin(false):console.log("no carga")
-
-        tmpUser != null ? navigation.navigate("ListadoVuelos", { user: tmpUser }):null 
+        tmpUser != null ? navigation.navigate("ListadoVuelos", { user: tmpUser }) : null
     }
 
     const registrar = () => {
@@ -46,7 +44,7 @@ export const Login = ({ navigation }) => {
                 <View style={styles.buttonContainer}>
                     <Button title="Ingresar" color="secondary" style={styles.button}
                         onPress={() => {
-                            setLogin(true)
+                            setLogin(true);
                             loguear();
                         }} />
                 </View>
@@ -55,9 +53,12 @@ export const Login = ({ navigation }) => {
                 </View>
             </View>
             <View>
-                {login ? <LoadingOverlay />: <View></View>}
+                {login ?
+                    <LoadingOverlay />
+                    : usuario ?
+                        <NotFoundOverlay /> : <View></View>}
             </View>
-            
+
         </View>
     );
 }

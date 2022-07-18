@@ -16,9 +16,6 @@ export const Item = ({ usuario, origen, destino, hora, valor, cod }) => {
                    )}
     */
    const [overlayActive,setOverlayActive]=useState(false)
-    const overlayCompra = () => {
-
-    }
     return (
         <View>
             <ListItem.Swipeable
