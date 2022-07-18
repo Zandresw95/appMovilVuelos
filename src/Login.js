@@ -1,5 +1,3 @@
-//import { StatusBar } from 'expo-status-bar';
-//import { enableExpoCliLogging } from 'expo/build/logs/Logs';
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Input, Button } from '@rneui/themed';

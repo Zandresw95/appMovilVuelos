@@ -21,7 +21,7 @@ export const RegisterService = async (
     try {
         const response = await axios.post(URL, data);
         if(response!=null){
-            setVisible()
+            setVisible(false)
             functionFn()
         }
     } catch (err) {

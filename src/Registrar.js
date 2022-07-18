@@ -2,7 +2,8 @@
 import { useState } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
 import { Input, Button } from '@rneui/themed';
-import { RegisterService } from './services/RegisterService'
+import { RegisterService } from './services/RegisterService';
+import { LoadingOverlay } from './components/LoadingOverlay';
 
 export const Registrar = ({ navigation }) => {
     const [username, setUserName] = useState("");
@@ -10,9 +11,10 @@ export const Registrar = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [passport, setPassport] = useState("");
     const [password, setPassword] = useState("");
+    const [active, setActive] = useState(false);
 
     const registrarUsuario = () => {
-        RegisterService(username, LastName, email, passport, password, canContinue)
+        RegisterService(username, LastName, email, passport, password, canContinue,setActive)
     }
     let canContinue = () => {
         navigation.pop();
@@ -59,6 +61,7 @@ export const Registrar = ({ navigation }) => {
                     <View style={styles.buttonContainer}>
                         <Button color="secondary"
                             onPress={() => {
+                                setActive(true)
                                 registrarUsuario()
                             }}
                         >Guardar</Button>
@@ -69,6 +72,9 @@ export const Registrar = ({ navigation }) => {
                             onPress={() => { canContinue() }}
                         >Regresar</Button>
                     </View>
+                </View>
+                <View>
+                    {active?<LoadingOverlay/>:<View></View>}
                 </View>
             </View>
         </ScrollView>

@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, ActivityIndicator, View, FlatList } from 'react-native';
 import { Item } from './components/List';
 import axios from "axios";
 
@@ -42,11 +42,12 @@ export const ListadoVuelos = ({ route }) => {
     return (
         <View style={styles.container}>
             <View>
-                <FlatList
+                {data != null ? <FlatList
                     data={data}
                     renderItem={renderItem}
                     keyExtractor={item => item.id}
-                />
+                /> : <ActivityIndicator size="large" color="#00ff00" />}
+                
 
             </View>
         </View>

@@ -7,7 +7,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "build": "expo build:android"
   },
   "dependencies": {
     "@react-navigation/native": "^6.0.11",
@@ -25,7 +26,7 @@
     "react-native-screens": "~3.11.1",
     "react-native-vector-icons": "^9.2.0",
     "react-native-web": "0.17.7",
-    "react-swipeable-list": "^1.5.1"
+    "expo-updates": "~0.13.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
