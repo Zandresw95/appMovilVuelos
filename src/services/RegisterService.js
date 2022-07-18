@@ -6,7 +6,8 @@ export const RegisterService = async (
     email,
     pasaporte,
     password,
-    functionFn
+    functionFn,
+    setVisible
 ) => {
     const URL = baseUrl + "Personas";
     const data = {
@@ -20,6 +21,7 @@ export const RegisterService = async (
     try {
         const response = await axios.post(URL, data);
         if(response!=null){
+            setVisible()
             functionFn()
         }
     } catch (err) {

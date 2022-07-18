@@ -9,17 +9,8 @@ export const OverlayPeticion = () => {
     };
     return (
         <View>
-
-            <Button
-                title="Open Overlay"
-                onPress={toggleOverlay}
-                buttonStyle={styles.button}
-            />
             <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
                 <Text style={styles.textPrimary}>Compra Registrada</Text>
-                <Text style={styles.textSecondary}>
-                    Compra Registrada correctamente
-                </Text>
                 <Button
                     title="Aceptar"
                     onPress={toggleOverlay}

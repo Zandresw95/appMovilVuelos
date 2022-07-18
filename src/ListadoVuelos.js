@@ -1,12 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { Item } from './components/List';
-import { GetVuelos } from './services/VueloService';
-import { ListItem, Avatar, Icon } from '@rneui/themed'
-export const ListadoVuelos = ({ route, navigation }) => {
+import axios from "axios";
+
+export const ListadoVuelos = ({ route }) => {
     let userData = null;
-    let vuelos = [];
     if (
         route != null &&
         route.params != null &&
@@ -15,16 +14,27 @@ export const ListadoVuelos = ({ route, navigation }) => {
         userData = route.params.user;
     }
 
-    if (
-        route != null &&
-        route.params != null &&
-        route.params.vuelo != null
-    ) {
-        vuelos = route.params.vuelo;
-        console.log(vuelos)
-    }
     const [usuario, setUsuario] = useState(userData)
-    const [data, setData] = useState(vuelos)
+    // const [data, setData] = useState(vuelos)
+    const [data, setData] = useState([])
+    useEffect(() => {
+        // declare the async data fetching function
+        const fetchData = async () => {
+            // obtengo los vuelos de la api
+            const data = await axios.get('http://viajecitossa.somee.com/api/Vuelos');
+            // guardo los vuelos
+            const json = await data.data;
+
+            // seteo la data con los vuelos
+            setData(json);
+        }
+
+        // llamo a la funcion
+        fetchData()
+            // veo si hay algun error
+            .catch(console.error);;
+    }, [data])
+
     const renderItem = ({ item }) => (
         <Item usuario={usuario.id} origen={item.ciudad_Origen} destino={item.ciudad_Destino} hora={item.hora_Salida} valor={item.valor_Vuelo} key={item.id} cod={item.id} />
     );

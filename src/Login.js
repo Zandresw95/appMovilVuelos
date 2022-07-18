@@ -4,8 +4,7 @@ import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Input, Button } from '@rneui/themed';
 import { LoginService } from './services/LoginService'
-import { GetVuelos } from './services/VueloService';
-import {LoadingOverlay} from './components/LoadingOverlay';
+import { LoadingOverlay } from './components/LoadingOverlay';
 
 export const Login = ({ navigation }) => {
 
@@ -14,14 +13,16 @@ export const Login = ({ navigation }) => {
     const [usuario, setUsuario] = useState(null);
     const [login, setLogin] = useState(false);
 
+    let tmpUser=null;
     const loguear = async () => {
-        let tmpUser = await LoginService(user, password, setUsuario);
-        let vuelos = await GetVuelos();
+        tmpUser = await LoginService(user, password, setUsuario);
+
         console.log("Usuaurio: ", tmpUser);
         setUsuario(tmpUser);
-        // usuario != null ? navigation.navigate("ListadoVuelos", { user: usuario }):console.log("CARGANDO")
-        tmpUser != null ? navigation.navigate("ListadoVuelos", { user: tmpUser, vuelo: vuelos }) : <LoadingOverlay />
-        //navigation.navigate("ListadoVuelos", { user: tmpUser,vuelo:vuelos })
+
+        tmpUser!=null?setLogin(false):console.log("no carga")
+
+        tmpUser != null ? navigation.navigate("ListadoVuelos", { user: tmpUser }):null 
     }
 
     const registrar = () => {
@@ -47,6 +48,7 @@ export const Login = ({ navigation }) => {
                 <View style={styles.buttonContainer}>
                     <Button title="Ingresar" color="secondary" style={styles.button}
                         onPress={() => {
+                            setLogin(true)
                             loguear();
                         }} />
                 </View>
@@ -54,8 +56,10 @@ export const Login = ({ navigation }) => {
                     <Button title="Registrarse" color="warning" onPress={() => { registrar() }} />
                 </View>
             </View>
-
-
+            <View>
+                {login ? <LoadingOverlay />: <View></View>}
+            </View>
+            
         </View>
     );
 }
@@ -83,5 +87,5 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         margin: 20
-    }
+    },
 });

@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { ListItem, Button, Divider, Icon } from '@rneui/themed';
 import { comprarVuelo } from '../services/CompraService';
+import { OverlayPeticion } from './Overlay';
+import { useState } from 'react';
 
 export const Item = ({ usuario, origen, destino, hora, valor, cod }) => {
     /*
@@ -13,14 +15,20 @@ export const Item = ({ usuario, origen, destino, hora, valor, cod }) => {
                        />
                    )}
     */
+   const [overlayActive,setOverlayActive]=useState(false)
+    const overlayCompra = () => {
 
+    }
     return (
         <View>
             <ListItem.Swipeable
                 rightContent={() => (
                     <Button
                         title="Comprar"
-                        onPress={() => comprarVuelo(usuario, cod)}
+                        onPress={() => {
+                            setOverlayActive(true);
+                            comprarVuelo(usuario, cod);
+                        }}
                         icon={{ name: 'cart', type: 'evilicon', color: 'white' }}
                         buttonStyle={{ minHeight: '100%', backgroundColor: 'green' }}
                     />
@@ -35,6 +43,9 @@ export const Item = ({ usuario, origen, destino, hora, valor, cod }) => {
 
             </ListItem.Swipeable>
             <Divider />
+            <View>
+                {overlayActive ? <OverlayPeticion /> : <View></View>}
+            </View>
         </View>
     );
 }
