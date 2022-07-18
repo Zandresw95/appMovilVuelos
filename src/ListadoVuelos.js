@@ -25,13 +25,8 @@ export const ListadoVuelos = ({ route, navigation }) => {
     }
     const [usuario, setUsuario] = useState(userData)
     const [data, setData] = useState(vuelos)
-    const retorno = () => {
-        if (navigation.canGoBack()) {
-            navigation.goBack();
-        }
-    }
     const renderItem = ({ item }) => (
-        <Item usuario={usuario.id} origen={item.ciudad_Origen} destino={item.ciudad_Destino} hora={item.hora_Salida} valor={item.valor_Vuelo} key={item.id} fnGoBack={retorno()} />
+        <Item usuario={usuario.id} origen={item.ciudad_Origen} destino={item.ciudad_Destino} hora={item.hora_Salida} valor={item.valor_Vuelo} key={item.id} cod={item.id} />
     );
 
     return (
